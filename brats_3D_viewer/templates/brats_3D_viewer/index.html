@@ -7,12 +7,23 @@
     <title>BraTS 2018 Demo</title>
 </head>
 <body>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit">
-    </form>
+    <div id="upload-form">
+        <h3>Upload MRIs</h3>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div id="scan-list">
+        <h3>MRI Scans</h3>
+        <ul>
+            {% for scan in scans %}
+                <li>{{ scan.case_id }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
