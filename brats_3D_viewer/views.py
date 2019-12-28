@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .forms import MRIScanForm
 from django.views import View
 from .models import MRIScan
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 # def index(request):
@@ -25,4 +26,31 @@ class HomeView(View):
             return JsonResponse({'status': 'Success'})
         else:
             return JsonResponse({'status': 'Failed to upload MRI scans.'})
+    
+    
+@csrf_exempt
+def delete_scan(request, scan_id):
+    if request.method == 'DELETE':
+        try:
+            scan_instance = MRIScan.objects.get(pk=scan_id)
+        except MRIScan.DoesNotExist:
+            scan_instance = None
+
+        if scan_instance:
+            scan_instance.delete()
+
+            return JsonResponse({'status': 'Deleted successfully.'})
+        else:
+            return JsonResponse({'status': "The target doesn't exist."})
+    else:
+        return JsonResponse({'status': 'Please use HTTP DELETE method.'})
+
+def get_scans(request):
+    scans = MRIScan.objects.all()
+    scans = tuple(map(lambda s: (s.case_id, s.id), scans))
+
+    return JsonResponse({'scans': scans})
+
+
+
 

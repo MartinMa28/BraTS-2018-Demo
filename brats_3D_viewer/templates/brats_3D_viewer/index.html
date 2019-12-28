@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>BraTS 2018 Demo</title>
+    
+    {% load static %}
 </head>
 <body>
     <div id="upload-form">
@@ -22,8 +24,13 @@
         <ul>
             {% for scan in scans %}
                 <li>{{ scan.case_id }}</li>
+                <button class="infer-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">Infer</button>
+                <button class="view-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">View 3D</button>
+                <button class="delete-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">Delete</button>
             {% endfor %}
         </ul>
     </div>
+
+    <script src="{% static 'brats_3D_viewer/scripts.js' %}"></script>
 </body>
 </html>
