@@ -30,7 +30,15 @@
             {% endfor %}
         </ul>
     </div>
-
+    
+    <script>
+        const HOSTNAME = '{{ request.get_host }}'
+        const RESTfulAPIS = {
+            "get_scans": "{% url 'brats_3D_viewer:get_scans' %}",
+            "delete": "{% url 'brats_3D_viewer:delete' 999 %}"
+        }
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{% static 'brats_3D_viewer/scripts.js' %}"></script>
 </body>
 </html>
