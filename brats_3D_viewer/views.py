@@ -5,9 +5,6 @@ from django.views import View
 from .models import MRIScan
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
-# def index(request):
-#     return HttpResponse('Hello, ready to make a better demo!')
 
 class HomeView(View):
     def get(self, request):

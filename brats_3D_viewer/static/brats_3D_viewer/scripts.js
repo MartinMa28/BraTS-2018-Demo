@@ -7,8 +7,6 @@ function updateScans(data) {
     
     
     let newScans = data.scans;
-    console.log(typeof newScans);
-    console.log(newScans);
 
     newScans.forEach(scan => {
         let newItem = document.createElement('li');
@@ -48,14 +46,9 @@ delBtns.forEach(btn => btn.addEventListener('click', () => {
 
     axios.delete(`http://${HOSTNAME}/${deleteURL.split('/')[1]}/${scanId}`)
         .then(response => {
-            console.log(response.data);
-            console.log(response.status);
-            console.log(response.statusText);
-            
             axios.get(`http://${HOSTNAME}${scansURL}`)
                 .then(response => response.data)
                 .then(data => {
-                    console.log(data);
                     updateScans(data);
                 })
         })
