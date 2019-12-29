@@ -23,10 +23,11 @@
         <h3>MRI Scans</h3>
         <ul>
             {% for scan in scans %}
-                <li>{{ scan.case_id }}</li>
+            <li>{{ scan.case_id }}
                 <button class="infer-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">Infer</button>
                 <button class="view-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">View 3D</button>
                 <button class="delete-btn" data-case-id="{{ scan.case_id }}" data-id="{{ scan.id }}">Delete</button>
+            </li>
             {% endfor %}
         </ul>
     </div>
