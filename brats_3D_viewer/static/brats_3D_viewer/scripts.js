@@ -7,6 +7,8 @@ function updateScans(data) {
     
     
     let newScans = data.scans;
+    console.log(typeof newScans);
+    console.log(newScans);
 
     newScans.forEach(scan => {
         let newItem = document.createElement('li');
@@ -17,12 +19,27 @@ function updateScans(data) {
             <button class="delete-btn" data-case-id="${scan[0]}" data-id="${scan[1]}">Delete</button>
         </li>
         `;
+        scanList.appendChild(newItem);
     })
+
 
 }
 
+function uploadScan() {
+    let formElement = document.querySelector('#upload-form form');
+    let formData = new FormData(formElement);
+
+    let uploadURL = RESTfulAPIS.upload;
+    console.log(uploadURL);
+}
+
+// Upload Scans Asynchronously
+document.querySelector('#upload-form button').addEventListener('click', () => {
+    uploadScan();
+});
 
 
+// Delete Scans Asynchronously
 let delBtns = document.querySelectorAll('.delete-btn');
 delBtns.forEach(btn => btn.addEventListener('click', () => {
     let scanId = btn.dataset.id;
@@ -36,8 +53,10 @@ delBtns.forEach(btn => btn.addEventListener('click', () => {
             console.log(response.statusText);
             
             axios.get(`http://${HOSTNAME}${scansURL}`)
-                .then(response => {
-                    updateScans(response);
+                .then(response => response.data)
+                .then(data => {
+                    console.log(data);
+                    updateScans(data);
                 })
         })
         .catch(error => {
